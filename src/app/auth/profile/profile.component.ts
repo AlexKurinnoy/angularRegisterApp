@@ -5,14 +5,14 @@ import {AuthenticationService, UserDetails} from '../authentication.service';
   templateUrl: './profile.component.html'
 })
 
-export class ProfileComponent implements OnInit{
+export class ProfileComponent implements OnInit {
   details: UserDetails;
   constructor(private auth: AuthenticationService) {}
 
   ngOnInit() {
     this.auth.profile().subscribe(
-      user => this.details = user,
-        err => console.error(err)
+      user => {this.details = user},
+      err => {console.error(err)}
     );
   }
 }

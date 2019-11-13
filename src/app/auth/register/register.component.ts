@@ -15,13 +15,13 @@ export class RegisterComponent {
     password: ''
   }
 
-  constructor(private auth: AuthenticationService, private router: Router){ }
+  constructor(private auth: AuthenticationService, private router: Router) { }
 
   register() {
     this.auth.register(this.credentials).subscribe(
-      () => this.router.navigateByUrl('/profile'),
+      () => this.router.navigateByUrl('/auth/profile'),
       err => console.error(err)
-    )
+    );
   }
 
 }
