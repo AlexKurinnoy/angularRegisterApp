@@ -8,12 +8,13 @@ import { AppComponent } from './app.component';
 import {AuthenticationService} from './auth/authentication.service';
 import {AuthGuardService} from './auth/auth-guard.service';
 import {AuthModule} from './auth/auth.module';
-import {EditorComponent} from './auth/editor/editor.component';
+
 import {LoginComponent} from './auth/login/login.component';
 import {ProfileComponent} from './auth/profile/profile.component';
 import {AuthComponent} from './auth/auth.component';
 import {RegisterComponent} from './auth/register/register.component';
 import { MainComponent } from './main/main.component';
+import {EditartService} from './auth/editart.service';
 
 const routes: Routes = [
   {path: '', component: MainComponent }
@@ -32,7 +33,7 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [AuthenticationService, AuthGuardService],
+  providers: [AuthenticationService, AuthGuardService, EditartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

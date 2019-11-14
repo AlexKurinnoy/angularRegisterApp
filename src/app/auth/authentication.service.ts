@@ -4,6 +4,8 @@ import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 
+
+
 export interface UserDetails {
   id: number;
   first_name: string;
@@ -100,6 +102,6 @@ export class AuthenticationService {
   public logout(): void {
     this.token = ''
     window.localStorage.removeItem('userToken')
-    this.router.navigateByUrl('/')
+    this.router.navigateByUrl('/');
   }
 }
