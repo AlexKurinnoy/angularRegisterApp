@@ -1,18 +1,19 @@
 
-<button (click)="getArticles()" class="btn btn-primary">Редактировать</button>
+<button *ngIf="!editorKey" (click)="newArticle()" class="btn btn-primary">Добавить статью</button>
 <div class="container">
   <div class="jumbotron mt-5">
     <div class="col-sm-8 mx-auto">
-      <ul *ngIf="!editorKey">
+      {{editorKey}}
+      <ul *ngIf="!editorKey" >
         <li *ngFor="let article of articleDetails">
           <p>{{article?.title}}</p>
           <button (click)="editArticle(article)" >Edit</button>
-          <button>Delete</button>
+          <button (click)="delArticle(article)" >Delete</button>
         </li>
       </ul>
 
 
-      <app-articllist *ngIf="editorKey"></app-articllist>
+      <app-articllist *ngIf="editorKey"  (onHide)="onHide()"></app-articllist>
     </div>
   </div>
 

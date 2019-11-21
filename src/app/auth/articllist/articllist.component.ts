@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {ArticleDetails, EditartService} from '../editart.service';
+import {JSON_CONFIG_FILENAME} from 'tslint/lib/configuration';
 
 @Component({
   selector: 'app-articllist',
@@ -10,15 +11,42 @@ import {ArticleDetails, EditartService} from '../editart.service';
 export class ArticllistComponent implements OnInit {
   nameControl: FormControl;
   article: ArticleDetails;
-  text: string
+  regForm: FormGroup;
+
+
 
   constructor(private editartService: EditartService) { }
 
+  @Output() onHide: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  public  setHide(){
+      this.onHide.emit(false);
+    }
+
   ngOnInit() {
-    this.article = this.editartService.getAritcle()
-    this.text = this.article.article
-    console.log(this.text);
-    // this.nameControl = new FormControl(JSON.stringify(this.text));
-    // console.log(this.nameControl);
+    this.regForm = new FormGroup({
+      title: new FormControl(),
+      author: new FormControl(),
+      section: new FormControl(),
+      tag: new FormControl(),
+      article: new FormControl()
+    })
+    console.log('init work')
+    this.article = this.editartService.getAritcle();
   }
+
+
+  updateArticle() {
+    this.editartService.updateUrticles(this.article);
+    this.setHide();
+    console.log("updateArticle work");
+  }
+
+   createArticle() {
+     this.editartService.createArticle(this.article);
+     this.setHide();
+     // this.article = this.emptyArticle;
+     // console.log("createA"+ JSON.stringify(this.emptyArticle));
+  }
+
 }

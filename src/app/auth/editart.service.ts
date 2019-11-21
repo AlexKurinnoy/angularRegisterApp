@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 import { catchError,  tap } from "rxjs/operators";
 
 export interface ArticleDetails {
-  id: number;
+
   article: string;
   author: string;
   section: string;
@@ -15,34 +15,79 @@ export interface ArticleDetails {
   title: string;
 }
 
+// private emptyArticle = {
+//   article: "",
+//   author: "",
+//   section: "",
+//   tag: "",
+//   data_time: "",
+//   title: "",
+// };
+
 @Injectable({
   providedIn: 'root'
 })
 export class EditartService {
+
   private token: string;
   private article: ArticleDetails;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {  }
+
     private getToken(): string {
       if (!this.token) {
         this.token = localStorage.getItem('userToken');
       }
       return this.token;
     }
+
+    public newArticle(){
+      this.article = {
+        article: "",
+        author: "",
+        section: "",
+        tag: "",
+        data_time: "",
+        title: "",
+      };
+    }
+
     public getArticles(): Observable<ArticleDetails[]> {
       return this.http.get<ArticleDetails[]>(`/articles/all`, {
             headers: {Authorization: `${this.getToken()}`}
           });
     }
-
-    public addAritcle(article: ArticleDetails) {
+    public updateUrticles(data: ArticleDetails): void {
+         this.http.post(`/articles/update`, data,
+        {  headers: {Authorization: `${this.getToken()}`}} )
+           .subscribe(res=>{
+             console.log('Ответ' + res);
+             this.getArticles();
+           })
+    }
+    public editAritcle(article: ArticleDetails) {
       this.article = article;
     }
     public getAritcle() {
-      if(this.article){
         return this.article;
-      }
     }
+    public createArticle(data: ArticleDetails){
+      this.http.post(`/articles/add`, data,
+        {  headers: {Authorization: `${this.getToken()}`}} )
+        .subscribe(res=>{
+          console.log('Ответ createArticle');
+          this.getArticles();
+        })
+    }
+  public delArticle(data: ArticleDetails){
+    this.http.post(`/articles/delete`, data,
+      {  headers: {Authorization: `${this.getToken()}`}} )
+      .subscribe(res=>{
+        console.log('Ответ' + res);
+        this.getArticles();
+      })
+  }
+
 
   // public profile(): Observable<any> {
   //   return this.http.get(`/users/profile`, {
