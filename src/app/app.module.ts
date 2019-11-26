@@ -15,6 +15,7 @@ import {AuthComponent} from './auth/auth.component';
 import {RegisterComponent} from './auth/register/register.component';
 import { MainComponent } from './main/main.component';
 import {EditartService} from './auth/editart.service';
+import {QuillModule} from 'ngx-quill';
 
 const routes: Routes = [
   {path: '', component: MainComponent }
@@ -31,6 +32,7 @@ const routes: Routes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+
     RouterModule.forRoot(routes)
   ],
   providers: [AuthenticationService, AuthGuardService, EditartService],

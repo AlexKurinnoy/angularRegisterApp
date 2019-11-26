@@ -4,12 +4,11 @@
   <input [(ngModel)]="article.author" formControlName="author"  type="text" placeholder="Автор">
   <input [(ngModel)]="article.section" formControlName="section"  type="text" placeholder="Раздел">
   <input [(ngModel)]="article.tag" formControlName="tag"  type="text" placeholder="Теги">
-  <app-ngx-editor
-    formControlName="article"
-    [placeholder]="'Enter text here...'"
-    [spellcheck]="true"
-    imageEndPoint="http://localhost:4200/assets/img"
-    [(ngModel)]="article.article"></app-ngx-editor>
+  <ckeditor [editor]="Editor"
+            formControlName="article"
+            [(ngModel)]="article.article"
+            [config]="CKEconfig"
+            ></ckeditor>
   <button type ="button" *ngIf="article.id"  (click)="updateArticle()" class="btn btn-primary">Сохранить</button>
   <button type ="button" *ngIf="!article.id"   (click)="createArticle()" class="btn btn-primary">СохранитьС</button>
 </form>

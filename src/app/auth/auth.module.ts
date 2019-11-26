@@ -11,9 +11,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { AuthComponent } from './auth.component';
 import {AppComponent} from '../app.component';
-import { NgxEditorModule } from 'ngx-editor';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ArticllistComponent } from './articllist/articllist.component';
+
 
 import {EditartService} from './editart.service';
 
@@ -45,7 +46,7 @@ const route: Routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxEditorModule,
+    CKEditorModule,
     TooltipModule.forRoot(),
     RouterModule.forRoot(route)
   ],
